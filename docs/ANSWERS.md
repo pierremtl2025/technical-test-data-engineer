@@ -97,8 +97,11 @@ Les réponses `JSON` sont validées et converties en objets Python (Pydantic).
 2. Chargement des données dans `load.py`
 Une fois toutes les données extraites et validées, l’opération `load_to_postgres` va écrire dans les tables `tracks`, `users` et `listen_history` de la base de données PostgreSQL. J'ai sérialisé le champ `items` pour être sûr d'avoir un array dans la table et non du texte. Par simplicité pour le test, j'ai choisi `pandas.DataFrame.to_sql()` pour convertir directement un `Dataframe` en table SQL. De plus, les types de colonnes sont mappés automatiquement ou via un `dtype` pour garantir la bonne correspondance (utile pour `DateTime()` et `JSONB()`). J'ai aussi choisi de `replace` par soucis de simplicité (il existe de techniques plus optimales en production comme l'incrémental).
 
-3. Planification
-Un cron programmé chaque jour à 8 h déclenche le `dagster-daemon`, qui orchestre l’exécution du job via Dagster.
+3. Création du job dans `ingest.py`
+Création d'un graph puis d'un job dagster. Un graph permet d'assembler les `@op` et sert de base pour la création d'un job exécutable
+
+4. Planification dans `schedules.py`
+Un cron programmé chaque jour à 8 h déclenche le `dagster-daemon`, qui orchestre l’exécution du job `ingest_job` via Dagster.
 
 ````
 [Scheduled Cron]
