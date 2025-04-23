@@ -89,12 +89,12 @@ Pour l'exercice, j'ai utilisé une base de données PostgreSQL afin d'avoir faci
 
 Le pipeline fonctionne ainsi:
 
-1. Extraction des données
+1. Extraction des données dans `extract.py`
 Le job exécute trois opérations (`fetch_tracks`, `fetch_users`, `fetch_listen_history`).
 Chacune opération envoie une requête HTTP (GET) aux endpoints correspondants du serveur FastAPI.
 Les réponses `JSON` sont validées et converties en objets Python (Pydantic).
 
-2. Chargement des données
+2. Chargement des données dans `load.py`
 Une fois toutes les données extraites et validées, l’opération `load_to_postgres` va écrire dans les tables `tracks`, `users` et `listen_history` de la base de données PostgreSQL. J'ai sérialisé le champ `items` pour être sûr d'avoir un array dans la table et non du texte. Par simplicité pour le test, j'ai choisi `pandas.DataFrame.to_sql()` pour convertir directement un `Dataframe` en table SQL. De plus, les types de colonnes sont mappés automatiquement ou via un `dtype` pour garantir la bonne correspondance (utile pour `DateTime()` et `JSONB()`). J'ai aussi choisi de `replace` par soucis de simplicité (il existe de techniques plus optimales en production comme l'incrémental).
 
 3. Planification
