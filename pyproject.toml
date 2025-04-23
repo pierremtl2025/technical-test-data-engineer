@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "test-moovai"
+version = "0.1.0"
+description = "Test data engineer Moov AI"
+
+packages = [
+  { include = "moovitamix_fastapi", from = "src" },
+  { include = "pipelines",           from = "src" },
+]
+
+
+[tool.poetry.dependencies]
+dagster = "^1.10.0"
+faker = "^37.1.0"
+fastapi = "^0.115.0"
+python = ">=3.10, <3.13"
+uvicorn = "^0.34.0"
+fastapi-pagination = "0.13.0"
+pandas = "^2.2.3"
+dagit = "^1.10.11"
+sqlalchemy = "^2.0.40"
+psycopg2-binary = "^2.9.10"
+
+[tool.poetry.group.development.dependencies]
+mypy = "1.11.1"
+pytest = "^8.3.0"
+pytest-cov = "^4.1.0"
+ruff = "^0.11.0"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "I",   # isort
+    "E",   # pycodestyle (errors)
+    "W",   # pycodestyle (warnings)
+    "F",   # pyflakes
+    "B",   # flake8-bugbear
+    "PL",  # pylint
+    "C90", # mccabe
+    "SLF", # flake8-self
+    "RSE", # flake8-raise
+    "RUF", # ruff
+    "UP", # pyupgrade
+]
+ignore = [
+    "PLR2004",  # Magic value used in comparison
+    "RUF005",  # Collection literal concatenation
+]
+
+
+[tool.ruff.format]
+docstring-code-format = true
+
+
+[build-system]
+requires = ["poetry>=1.8.2"]
+build-backend = "poetry.core.masonry.api"
