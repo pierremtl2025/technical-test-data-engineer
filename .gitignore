@@ -1,4 +1,7 @@
 .vscode/
+dagster_home/
+moovitamix_db.db
+.tmp_dagster*
 
 # https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General
