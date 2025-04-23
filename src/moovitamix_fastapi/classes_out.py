@@ -26,6 +26,7 @@ def gender_list():
         "Gender nonconforming",
     ]
 
+
 def generate_random_gender():
     return random.choice(gender_list())
 
@@ -50,6 +51,7 @@ def genre_list():
         "Alternative",
         "Techno",
     ]
+
 
 def generate_random_genre():
     return random.choice(genre_list())

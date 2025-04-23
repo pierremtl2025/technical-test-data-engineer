@@ -33,19 +33,12 @@ class FakeDataGenerator:
                 - listen_history: A list of generated listen history.
 
         """
-        tracks = [
-            TracksOut.generate_fake() for _ in range(self.data_range_observations)
-        ]
+        tracks = [TracksOut.generate_fake() for _ in range(self.data_range_observations)]
         users = [UsersOut.generate_fake() for _ in range(self.data_range_observations)]
-        listen_history = [
-            ListenHistoryOut.generate_fake()
-            for _ in range(self.data_range_observations)
-        ]
+        listen_history = [ListenHistoryOut.generate_fake() for _ in range(self.data_range_observations)]
 
         for index, item in enumerate(listen_history):
-            random_tracks = random.sample(
-                [track.id for track in tracks], 5
-            )  # pick 5 random track IDs per user
+            random_tracks = random.sample([track.id for track in tracks], 5)  # pick 5 random track IDs per user
             listen_history[index] = ListenHistoryOut(
                 user_id=users[index].id,
                 items=random_tracks,
