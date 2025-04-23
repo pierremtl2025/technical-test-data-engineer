@@ -1,0 +1,14 @@
+[run]
+branch = True
+source =
+    src
+omit =
+    tests/*
+
+[report]
+# show missing lines in terminal
+show_missing = True
+# skip coverage for __init__.py
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
